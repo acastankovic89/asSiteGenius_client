@@ -1,0 +1,47 @@
+.adminLogIn {
+    height: 100vh;
+    width: 100%;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.adminLogIn .title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.adminLogIn .title  h1 {
+    color: #3C486B;
+}
+
+.adminLogIn .formWrapper {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.adminLogIn .formWrapper form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adminLogIn .formWrapper form input {
+    width: 300px;
+    margin-top: 20px;
+}
+
+.adminLogIn .formWrapper form i {
+    margin-top: 0 !important;
+}
+
+.adminLogIn .formWrapper form button {
+    margin-top: 20px;
+}
