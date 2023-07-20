@@ -39,7 +39,7 @@ const SuperAdmin = () => {
 
   useEffect(() => {
     var salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync("B4c0//", salt);
+    const hash = bcrypt.hashSync(nonHashpassword, salt);
     setPassword(hash);
   }, [nonHashpassword]);
 
