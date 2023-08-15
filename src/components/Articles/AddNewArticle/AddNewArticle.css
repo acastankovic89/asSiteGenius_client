@@ -1,0 +1,131 @@
+.addNew .addNewWrapper {
+    height: 100vh;
+    width: calc(100% - 20rem);
+    float: right;
+    margin: 0px 0px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.addNew .addNewWrapper .formWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: calc(100% - 20rem);
+    float: left;
+    border: 10px solid #3C486B;
+}
+
+.addNew .addNewWrapper .formWrapper .form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.addNew .addNewWrapper .formWrapper .form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.addNew .addNewWrapper .formWrapper .form .editorWrapper {
+    width: 100%;
+    padding:  0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.addNew .addNewWrapper .formWrapper .form .editorWrapper label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.addNew .addNewWrapper .formWrapper .form .input-wrapper input {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.addNew .addNewWrapper .formWrapper .form .input-wrapper span {
+    width: 80%;
+}
+
+.addNew .addNewWrapper .rightSideBar {
+    width: 19.2rem;
+    border: 10px solid #3C486B;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar .controle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 20px;
+    border: 1px solid #3C486B;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar .introImageUpload {
+    border: 1px solid #3C486B;
+    margin-top: 2px;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar .introImageUpload p:first-child {
+    padding-left: 20px;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar {
+    margin: 5px;
+    border: 1px solid #3C486B;
+    padding: 3px;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar .controle p {
+    margin-right: 20px;
+    margin-right: 20px;
+}
+
+.addNew .addNewWrapper .rightSideBar .actionBar .controle .buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.selectCategory {
+    padding: 3px;
+}
+
+.selectCategory .categorySelector:first-child {
+    padding-left: 0;
+}
+
+.selectCategory .categorySelector {cursor: pointer;
+padding-left: 20px;}
+
+.selectCategory .categorySelector.childCategory {
+    padding-left: 40px;
+}
+
+.selectCategory .selected {
+    background-color: #3C486B;
+    color: white; /* Optional: to improve visibility */
+  }
+
+.selectCategory .parentCategory {
+    border-left: 1px solid  #3C486B;
+    padding-left: 3px;
+    border-radius: 10px;
+}
+
+.selectCategory .parentCategory div {
+    margin-left: 20px;
+}
+
+.selectCategory .parentCategory.haveParent div{
+    margin-left: 20px;
+}
+  

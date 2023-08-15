@@ -4,23 +4,3 @@
     background-color: #F0F0F0;
     overflow: hidden;
 }
-
-.adminHomeWrapper .adminTopBar {
-    height: 70px;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    padding: 0px 40px;
-    background-color: #3C486B;
-}
-
-.adminHomeWrapper .adminTopBar button {
-    background-color: #f17979;
-    color: #fff;
-    border-color: #fff;
-}
-
-.adminHomeWrapper .adminTopBar button:hover {
-    background-color: #f94747;
-    border-color: #fff;
-}
