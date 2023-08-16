@@ -128,4 +128,12 @@ padding-left: 20px;}
 .selectCategory .parentCategory.haveParent div{
     margin-left: 20px;
 }
+
+.addNewWrapper .formWrapper .title {
+    width: 100%;
+}
+
+.addNewWrapper .formWrapper .title h2 {
+    text-align: center;
+}
   
