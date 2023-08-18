@@ -8,24 +8,24 @@ import axios from "axios";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+import UpdateArticle from "../UpdateArticle/UpdateArticle";
+import { useNavigate } from "react-router-dom";
 
 const ArticlesTable = () => {
   const [articlesAll, setArticlesAll] = useState([]);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
   const toast = useRef(null);
-  console.log("articlesAll", articlesAll);
+  const navigate = useNavigate();
 
   const getAllArticles = async () => {
     try {
       const findAllArticles = await axios.get("http://localhost:8080/articles");
       setArticlesAll(findAllArticles.data.response);
-      console.log("findAllArticles", findAllArticles);
     } catch (error) {}
   };
 
   const setArticlesData = (test) => {
-    console.log("test", test);
     return test.map((article) => ({
       id: article.id,
       title: article.title,
@@ -36,6 +36,10 @@ const ArticlesTable = () => {
   const handleDelete = (data) => {
     setSelectedArticleId(data);
     setDisplayDeleteDialog(true);
+  };
+
+  const redirectToUpdate = (data) => {
+    navigate(`/articles/updateArticle/${data}`);
   };
 
   const confirmDelete = async () => {
@@ -64,13 +68,12 @@ const ArticlesTable = () => {
   };
 
   const actionTemplate = (rowData) => {
-    console.log("rowData", rowData);
     return (
       <div>
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-secondary p-mr-2"
-          onClick={confirmDelete} // Define your edit action function
+          onClick={() => redirectToUpdate(rowData.id)} // Define your edit action function
         />
         <Button
           icon="pi pi-trash"
