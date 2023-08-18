@@ -8,12 +8,14 @@ import axios from "axios";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+import { useNavigate } from "react-router-dom";
 
 const CategoriesTable = () => {
   const [categoriesAll, setCategoriesAll] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
   const toast = useRef(null);
+  const navigate = useNavigate();
 
   const getAllCategories = async () => {
     try {
@@ -49,6 +51,10 @@ const CategoriesTable = () => {
     setDisplayDeleteDialog(true);
   };
 
+  const redirectToUpdate = (data) => {
+    navigate(`/categories/updateCategory/${data}`);
+  };
+
   const confirmDelete = async () => {
     try {
       const deleteCategory = await axios.delete(
@@ -80,7 +86,7 @@ const CategoriesTable = () => {
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-secondary p-mr-2"
-          onClick={confirmDelete} // Define your edit action function
+          onClick={() => redirectToUpdate(rowData.id)} // Define your edit action function
         />
         <Button
           icon="pi pi-trash"
