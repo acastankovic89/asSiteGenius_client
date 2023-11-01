@@ -93,10 +93,10 @@ const ArticlesTable = () => {
   }, [articlesAll]);
 
   return (
-    <div className="addNew">
+    <div className="admin">
       <AdminTopBar />
       <AdminSidebar />
-      <div className="addNewWrapper">
+      <div className="adminWrapper">
         <div className="formWrapper">
           <Toast ref={toast} />
 

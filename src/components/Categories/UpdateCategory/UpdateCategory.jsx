@@ -511,10 +511,10 @@ const UpdateArticle = () => {
   }
 
   return (
-    <div className="addNew">
+    <div className="admin">
       <AdminTopBar />
       <AdminSidebar />
-      <div className="addNewWrapper">
+      <div className="adminWrapper">
         <div className="formWrapper">
           <div className="form">
             <div className="input-wrapper">

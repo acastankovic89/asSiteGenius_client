@@ -1,4 +1,4 @@
-.addNew .addNewWrapper {
+.admin .adminWrapper {
     height: 100vh;
     width: calc(100% - 20rem);
     float: right;
@@ -8,7 +8,31 @@
     flex-wrap: wrap;
 }
 
-.addNew .addNewWrapper .formWrapper {
+.admin .adminWrapper.menuItemsWrapper {
+    height: unset;
+    width: calc(100% - 20rem);
+    float: left;
+    margin: 0px 0px 20px 20rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.admin .adminWrapper.menuItemsWrapper .card {
+    width: 100%;
+}
+
+.admin .adminWrapper.menu-items {
+    height: unset ;
+    width: calc(100% - 20rem);
+    float: right;
+    margin: 0px 0px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.admin .adminWrapper .formWrapper {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -17,7 +41,13 @@
     border: 10px solid #3C486B;
 }
 
-.addNew .addNewWrapper .formWrapper .form {
+.admin .adminWrapper .formWrapper.menu {
+    height: fit-content;
+    padding: 60px 0;
+}
+
+
+.admin .adminWrapper .formWrapper .form {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -25,7 +55,23 @@
     align-items: baseline;
 }
 
-.addNew .addNewWrapper .formWrapper .form .input-wrapper {
+.admin .adminWrapper .formWrapper .form.menu-input {
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.admin .adminWrapper .formWrapper .form.menu-input .input-wrapper {
+    width: 100%;
+}
+
+.admin .adminWrapper .formWrapper .form.menu-input .input-wrapper input {
+    width: 40%;
+}
+
+.admin .adminWrapper .formWrapper .form .input-wrapper {
     display: flex;
     flex-direction: column;
     width: 48%;
@@ -33,7 +79,7 @@
     padding: 15px 0;
 }
 
-.addNew .addNewWrapper .formWrapper .form .editorWrapper {
+.admin .adminWrapper .formWrapper .form .editorWrapper {
     width: 100%;
     padding:  0 20px 20px 20px;
     display: flex;
@@ -41,27 +87,46 @@
     flex-wrap: wrap;
 }
 
-.addNew .addNewWrapper .formWrapper .form .editorWrapper label {
+.admin .adminWrapper .formWrapper .form .editorWrapper label {
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.addNew .addNewWrapper .formWrapper .form .input-wrapper input {
+.admin.adminWrapper .formWrapper .form .input-wrapper input {
     margin-top: 20px;
     width: 80%;
+    
 }
 
-.addNew .addNewWrapper .formWrapper .form .input-wrapper span {
+.admin .adminWrapper .formWrapper .form .input-wrapper span {
     width: 80%;
 }
 
-.addNew .addNewWrapper .rightSideBar {
+.admin .adminWrapper .formWrapper .form .input-wrapper .p-dropdown {
+    width: 40%;
+    height: 50px;
+}
+
+.admin .adminWrapper .formWrapper .form .input-wrapper.button {
+    width: 100%;
+}
+
+.admin .adminWrapper .formWrapper .form .input-wrapper.button button {
+    width: 300px;
+}
+
+.admin .adminWrapper .rightSideBar {
     width: 19.2rem;
     border: 10px solid #3C486B;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar .controle {
+.admin .adminWrapper .rightSideBar.menu {
+    height: fit-content;
+    padding: 84px 0;
+}
+
+.admin .adminWrapper .rightSideBar .actionBar .controle {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -69,27 +134,27 @@
     border: 1px solid #3C486B;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar .introImageUpload {
+.admin .adminWrapper .rightSideBar .actionBar .introImageUpload {
     border: 1px solid #3C486B;
     margin-top: 2px;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar .introImageUpload p:first-child {
+.admin .adminWrapper .rightSideBar .actionBar .introImageUpload p:first-child {
     padding-left: 20px;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar {
+.admin .adminWrapper .rightSideBar .actionBar {
     margin: 5px;
     border: 1px solid #3C486B;
     padding: 3px;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar .controle p {
+.admin .adminWrapper .rightSideBar .actionBar .controle p {
     margin-right: 20px;
     margin-right: 20px;
 }
 
-.addNew .addNewWrapper .rightSideBar .actionBar .controle .buttonWrapper {
+.admin .adminWrapper .rightSideBar .actionBar .controle .buttonWrapper {
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -129,11 +194,16 @@ padding-left: 20px;}
     margin-left: 20px;
 }
 
-.addNewWrapper .formWrapper .title {
+.adminWrapper .formWrapper .title {
     width: 100%;
 }
 
-.addNewWrapper .formWrapper .title h2 {
+.adminWrapper .formWrapper .title h2 {
     text-align: center;
+}
+
+.admin .adminWrapper.menu-items .form .card {
+    width: 80%;
+    margin: 0 auto;
 }
   
