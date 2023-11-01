@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import AdminSidebar from "../../AdminSidebar/AdminSidebar";
-import AdminTopBar from "../../AdminTopBar/AdminTopBar";
-import "../../Articles/AddNewArticle/AddNewArticle.css";
+import "../Articles/AddNewArticle/AddNewArticle.css";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import axios from "axios";
@@ -9,72 +7,63 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { useNavigate } from "react-router-dom";
+import AdminSidebar from "../AdminSidebar/AdminSidebar";
+import AdminTopBar from "../AdminTopBar/AdminTopBar";
+import { Tooltip } from "primereact/tooltip";
 
-const CategoriesTable = () => {
-  const [categoriesAll, setCategoriesAll] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+const MenusTable = () => {
+  const [menusAll, setMenusAll] = useState([]);
+  console.log("menusAll", menusAll);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
   const toast = useRef(null);
   const navigate = useNavigate();
 
-  const getAllCategories = async () => {
+  const getAllMenus = async () => {
     try {
-      const findAllCategories = await axios.get(
-        "http://localhost:8080/categories/getAllCategories"
-      );
-      setCategoriesAll(findAllCategories.data);
+      const findAllMenus = await axios.get("http://localhost:8080/menus");
+      setMenusAll(findAllMenus.data.response);
     } catch (error) {}
   };
 
-  const setCategoriesData = (data) => {
-    return data.map((category) => ({
-      id: category.id,
-      title: category.title,
-      category: category.parentId
-        ? setParentCategoryName(category)
-        : "No Category",
+  const setMenusData = (data) => {
+    console.log("data", data);
+    return data.map((menu) => ({
+      id: menu.id,
+      languageId: menu.languageId,
+      name: menu.name,
     }));
   };
 
-  const setParentCategoryName = (category) => {
-    var categoryTitle;
-    categoriesAll.forEach((cat) => {
-      if (cat.id === category.parentId) {
-        categoryTitle = cat.title;
-      }
-    });
-    return categoryTitle;
-  };
-
   const handleDelete = (data) => {
-    setSelectedCategoryId(data);
+    setSelectedArticleId(data);
     setDisplayDeleteDialog(true);
   };
 
   const redirectToUpdate = (data) => {
-    navigate(`/categories/updateCategory/${data}`);
+    navigate(`/menus/createMenuItems/${data}`);
   };
 
   const confirmDelete = async () => {
     try {
-      const deleteCategory = await axios.delete(
-        `http://localhost:8080/categories/${selectedCategoryId}`
+      const deleteArticle = await axios.delete(
+        `http://localhost:8080/menus/${selectedArticleId}`
       );
-      console.log("deleteCategory", deleteCategory);
+      console.log("deleteArticle", deleteArticle);
       setDisplayDeleteDialog(false);
       toast.current.show({
         severity: "success",
         summary: "Success",
-        detail: deleteCategory.data.message,
+        detail: "Menu deleted successfully",
       });
-      getAllCategories();
+      getAllMenus();
     } catch (error) {
       if (error) {
         console.log("Error:", error);
         toast.current.show({
           severity: "error",
           summary: "Error",
-          detail: "An error occurred while deleting the article",
+          detail: "An error occurred while deleting menu",
         });
       }
     }
@@ -84,9 +73,10 @@ const CategoriesTable = () => {
     return (
       <div>
         <Button
-          icon="pi pi-pencil"
+          icon="pi pi-fw pi-plus-circle"
           className="p-button-rounded p-button-secondary p-mr-2"
-          onClick={() => redirectToUpdate(rowData.id)} // Define your edit action function
+          onClick={() => redirectToUpdate(rowData.id)}
+          // Define your edit action function
         />
         <Button
           icon="pi pi-trash"
@@ -98,12 +88,12 @@ const CategoriesTable = () => {
   };
 
   useEffect(() => {
-    getAllCategories();
+    getAllMenus();
   }, []);
 
   useEffect(() => {
-    setCategoriesData(categoriesAll);
-  }, [categoriesAll]);
+    setMenusData(menusAll);
+  }, [menusAll]);
 
   return (
     <div className="admin">
@@ -114,27 +104,22 @@ const CategoriesTable = () => {
           <Toast ref={toast} />
 
           <div className="title">
-            <h2>Categories Table</h2>
+            <h2>Articles Table</h2>
             <div className="card">
               <DataTable
-                value={setCategoriesData(categoriesAll)}
+                value={setMenusData(menusAll)}
                 paginator
                 rows={5}
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 tableStyle={{ minWidth: "50rem" }}
               >
                 <Column
-                  field="title"
-                  header="Title"
+                  field="name"
+                  header="Name"
                   style={{ width: "40%" }}
                 ></Column>
                 <Column
-                  field="category"
-                  header="Category"
-                  style={{ width: "40%" }}
-                ></Column>
-                <Column
-                  field="id"
+                  field="parentId"
                   header="Actions"
                   value={"id"}
                   body={actionTemplate}
@@ -166,9 +151,9 @@ const CategoriesTable = () => {
           </div>
         }
       >
-        Are you sure you want to delete this article?
+        Are you sure you want to delete this menu?
       </Dialog>
     </div>
   );
 };
-export default CategoriesTable;
+export default MenusTable;

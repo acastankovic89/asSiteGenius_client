@@ -42,6 +42,22 @@ const AdminSidebar = () => {
         },
       ],
     },
+    {
+      key: "2",
+      label: "Menus",
+      children: [
+        {
+          key: "2-0",
+          childrenLabel: "Table",
+          url: `${rootUrl}/menus/menusTable`,
+        },
+        {
+          key: "2-1",
+          childrenLabel: "Add new",
+          url: `${rootUrl}/menus/addNewMenu`,
+        },
+      ],
+    },
   ];
 
   const sideBarTemplate = (items, options) => {
@@ -67,9 +83,11 @@ const AdminSidebar = () => {
     const expanded = options.expanded;
     const isCategory = items.key.startsWith("1");
     const isArticle = items.key.startsWith("0");
+    const isMenu = items.key.startsWith("2");
     const iconClassName = classNames("p-tree-toggler-icon pi pi-fw", {
       "pi-clone": isCategory && !expanded,
       "pi-file": isArticle && !expanded,
+      "pi-bars": isMenu && !expanded,
       "pi-caret-down": expanded,
     });
     return (
