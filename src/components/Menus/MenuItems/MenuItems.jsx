@@ -23,16 +23,13 @@ const MenuItems = () => {
   const [menuItemUrl, setMenuItemUrl] = useState();
   const [targetId, setTargetId] = useState(0);
   const [parentId, setParentId] = useState(null);
-  console.log("parentId", parentId);
   const [allCategories, setAllCategories] = useState([]);
   const [allMenuItems, setAllMenuItems] = useState();
   const [menuItemsTree, setMenuItemsTree] = useState(null);
   const [nodes, setNodes] = useState();
   const [menusItemData, setMenusItemData] = useState();
-  console.log("nodes", nodes);
   const [expandedKeys, setExpandedKeys] = useState({ 0: true, "0-0": true });
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(null);
-  console.log("selectedMenuItemId", selectedMenuItemId);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
 
   const expandAll = () => {
@@ -60,7 +57,6 @@ const MenuItems = () => {
   };
 
   const nodeTemplate = (node) => {
-    console.log("node", node);
     return (
       <span>
         {node.name + " url: "}
@@ -74,8 +70,6 @@ const MenuItems = () => {
       const getAllMenuItems = await axios.get(
         `http://localhost:8080/menu-items/current/${id}`
       );
-
-      console.log("getAllMenuItems", getAllMenuItems);
       setAllMenuItems(getAllMenuItems.data.response);
     } catch (error) {
       if (error) console.log("Error:", error);
@@ -87,8 +81,6 @@ const MenuItems = () => {
       const getAllMenuItemsTree = await axios.get(
         `http://localhost:8080/menu-items/menuItemsTree/${id}`
       );
-
-      console.log("getAllMenuItemsTree", getAllMenuItemsTree);
       setNodes(getAllMenuItemsTree.data);
     } catch (error) {
       if (error) console.log("Error:", error);
@@ -282,14 +274,15 @@ const MenuItems = () => {
       const deleteMenuItem = await axios.delete(
         `http://localhost:8080/menu-items/${selectedMenuItemId}`
       );
-      console.log("deleteMenuItem", deleteMenuItem);
-      setDisplayDeleteDialog(false);
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "Menu item deleted successfully",
-      });
-      getAllMenuItems();
+      if (deleteMenuItem) {
+        setDisplayDeleteDialog(false);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Menu item deleted successfully",
+        });
+        getAllMenuItems();
+      }
     } catch (error) {
       if (error) {
         console.log("Error:", error);

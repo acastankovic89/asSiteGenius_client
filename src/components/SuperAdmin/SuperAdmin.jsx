@@ -33,8 +33,6 @@ const SuperAdmin = () => {
       email: email,
       role: "admin",
     });
-    console.log("response", response);
-    console.log("tesssss", response);
   };
 
   useEffect(() => {
@@ -42,8 +40,6 @@ const SuperAdmin = () => {
     const hash = bcrypt.hashSync(nonHashpassword, salt);
     setPassword(hash);
   }, [nonHashpassword]);
-
-  console.log("repeatPasswordValidation", repeatPasswordValidation);
 
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -59,7 +55,6 @@ const SuperAdmin = () => {
 
   const hendlePassword = (e) => {
     const value = e.target.value;
-    console.log("value", value);
     setRepeatPassword(value);
     if (nonHashpassword !== value) {
       setRepeatPasswordValidation(false);

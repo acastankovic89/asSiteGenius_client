@@ -29,12 +29,12 @@ const AddNewArticle = () => {
   const [introImagetotalSize, setIntroImageTotalSize] = useState(0);
   const introImageUploadRef = useRef(null);
   const [introImageName, setIntroImageName] = useState("");
-  console.log("categoryId", categoryId);
   const [mainImagetotalSize, setMainImageTotalSize] = useState(0);
   const mainImageUploadRef = useRef(null);
   const [mainImageName, setMainImageName] = useState("");
   const [allCategory, setAllCategory] = useState([]);
-  console.log("mainImageName", mainImageName);
+  const [metaTitle, setMetaTitle] = useState([]);
+  const [metaDescription, setMetaDescription] = useState([]);
 
   const createNestedOptions = (categories) => {
     return categories.map((category) => ({
@@ -45,9 +45,7 @@ const AddNewArticle = () => {
   };
 
   const setCategoryTree = (categoryTree) => {
-    console.log("categoryTree", categoryTree);
     return categoryTree.map((category) => {
-      console.log("cat", category);
       const hasParent = category.parentId;
       const categoryClassName = hasParent ? "haveParent" : "";
 
@@ -131,8 +129,6 @@ const AddNewArticle = () => {
   };
 
   const onIntroImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -148,8 +144,6 @@ const AddNewArticle = () => {
   };
 
   const onMainImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -408,6 +402,8 @@ const AddNewArticle = () => {
       mainImage: mainImageName,
       publishDate: formatedDate,
       categoryId: categoryId,
+      metaTitle: metaTitle,
+      metaDescription: metaDescription,
     };
 
     try {
@@ -435,8 +431,6 @@ const AddNewArticle = () => {
     } catch (error) {
       if (error) console.log("Error:", error);
     }
-
-    console.log("formData", formData);
     // window.location.reload();
   };
 
@@ -524,6 +518,26 @@ const AddNewArticle = () => {
                 id="author"
                 className="p-inputtext-lg"
                 aria-describedby="username-help"
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="subtitle">Meta Title</label>
+              <InputText
+                id="metaTitle"
+                className="p-inputtext-lg"
+                aria-describedby="username-help"
+                onChange={(event) => setMetaTitle(event.target.value)}
+                value={metaTitle}
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="subtitle">Meta description</label>
+              <InputText
+                id="metaDescription"
+                className="p-inputtext-lg"
+                aria-describedby="username-help"
+                onChange={(event) => setMetaDescription(event.target.value)}
+                value={metaDescription}
               />
             </div>
             <div className="editorWrapper">

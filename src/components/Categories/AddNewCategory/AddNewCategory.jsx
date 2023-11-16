@@ -20,7 +20,6 @@ const AddNewCategory = () => {
   const [parentId, setParentId] = useState(null);
   const [content, setContent] = useState("");
   const [date, setDate] = useState(null);
-  console.log("parentId", parentId);
   const [formatedDate, setFormatedDate] = useState(getTodayDate());
   const [publishedCheck, setPublishedCheck] = useState(false);
   const [published, setPublished] = useState(0);
@@ -36,7 +35,6 @@ const AddNewCategory = () => {
   const mainImageUploadRef = useRef(null);
   const [mainImageName, setMainImageName] = useState("");
   const [allCategory, setAllCategory] = useState([]);
-  console.log("allCategory", allCategory);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const createNestedOptions = (categories) => {
@@ -48,9 +46,7 @@ const AddNewCategory = () => {
   };
 
   const setCategoryTree = (categoryTree) => {
-    console.log("categoryTree", categoryTree);
     return categoryTree.map((category) => {
-      console.log("cat", category);
       const hasParent = category.parentId;
       const categoryClassName = hasParent ? "haveParent" : "";
 
@@ -90,14 +86,11 @@ const AddNewCategory = () => {
     });
   };
 
-  console.log("terrr", setCategoryTree(allCategory));
-
   const formattedCategoryOptions = createNestedOptions(allCategory);
 
   const fetchAllCategories = async () => {
     try {
       const fetch = await axios.get("http://localhost:8080/categories");
-      console.log("fetch", fetch);
       setAllCategory(fetch.data);
     } catch (error) {
       if (error) {
@@ -139,8 +132,6 @@ const AddNewCategory = () => {
   };
 
   const onIntroImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -156,8 +147,6 @@ const AddNewCategory = () => {
   };
 
   const onMainImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -439,7 +428,6 @@ const AddNewCategory = () => {
           detail: "Error",
         });
       }
-      console.log("response", response);
     } catch (error) {
       if (error) console.log("Error:", error);
     }

@@ -58,6 +58,54 @@ const AdminSidebar = () => {
         },
       ],
     },
+    {
+      key: "3",
+      label: "Slider",
+      children: [
+        {
+          key: "3-0",
+          childrenLabel: "Table",
+          url: `${rootUrl}/slider/slidersTable`,
+        },
+        {
+          key: "3-1",
+          childrenLabel: "Add new",
+          url: `${rootUrl}/slider/addNewSlider`,
+        },
+      ],
+    },
+    {
+      key: "4",
+      label: "Users",
+      children: [
+        {
+          key: "4-0",
+          childrenLabel: "Table",
+          url: `${rootUrl}/users/usersTable`,
+        },
+        {
+          key: "4-1",
+          childrenLabel: "Add new",
+          url: `${rootUrl}/users/addNewUser`,
+        },
+      ],
+    },
+    {
+      key: "5",
+      label: "Galleries",
+      children: [
+        {
+          key: "5-0",
+          childrenLabel: "Table",
+          url: `${rootUrl}/gallery/galleriesTable`,
+        },
+        {
+          key: "5-1",
+          childrenLabel: "Add new",
+          url: `${rootUrl}/gallery/addNewGallery`,
+        },
+      ],
+    },
   ];
 
   const sideBarTemplate = (items, options) => {
@@ -84,10 +132,16 @@ const AdminSidebar = () => {
     const isCategory = items.key.startsWith("1");
     const isArticle = items.key.startsWith("0");
     const isMenu = items.key.startsWith("2");
+    const isSlider = items.key.startsWith("3");
+    const isUser = items.key.startsWith("4");
+    const isGallery = items.key.startsWith("5");
     const iconClassName = classNames("p-tree-toggler-icon pi pi-fw", {
       "pi-clone": isCategory && !expanded,
       "pi-file": isArticle && !expanded,
       "pi-bars": isMenu && !expanded,
+      "pi-sliders-h": isSlider && !expanded,
+      "pi-user": isUser && !expanded,
+      "pi-image": isGallery && !expanded,
       "pi-caret-down": expanded,
     });
     return (

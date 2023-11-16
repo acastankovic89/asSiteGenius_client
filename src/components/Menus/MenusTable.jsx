@@ -13,7 +13,6 @@ import { Tooltip } from "primereact/tooltip";
 
 const MenusTable = () => {
   const [menusAll, setMenusAll] = useState([]);
-  console.log("menusAll", menusAll);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
   const toast = useRef(null);
@@ -27,7 +26,6 @@ const MenusTable = () => {
   };
 
   const setMenusData = (data) => {
-    console.log("data", data);
     return data.map((menu) => ({
       id: menu.id,
       languageId: menu.languageId,
@@ -46,17 +44,18 @@ const MenusTable = () => {
 
   const confirmDelete = async () => {
     try {
-      const deleteArticle = await axios.delete(
+      const deleteMenu = await axios.delete(
         `http://localhost:8080/menus/${selectedArticleId}`
       );
-      console.log("deleteArticle", deleteArticle);
-      setDisplayDeleteDialog(false);
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "Menu deleted successfully",
-      });
-      getAllMenus();
+      if (deleteMenu) {
+        setDisplayDeleteDialog(false);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Menu deleted successfully",
+        });
+        getAllMenus();
+      }
     } catch (error) {
       if (error) {
         console.log("Error:", error);
@@ -104,7 +103,7 @@ const MenusTable = () => {
           <Toast ref={toast} />
 
           <div className="title">
-            <h2>Articles Table</h2>
+            <h2>Menus Table</h2>
             <div className="card">
               <DataTable
                 value={setMenusData(menusAll)}

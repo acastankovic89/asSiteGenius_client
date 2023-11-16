@@ -17,7 +17,6 @@ import { useParams } from "react-router-dom";
 
 const UpdateArticle = () => {
   const [category, setCategory] = useState(null);
-  console.log("category zsfzfxzf", category);
   const [categoryId, setCategoryId] = useState(null);
   const [content, setContent] = useState("");
   const [date, setDate] = useState(null);
@@ -32,12 +31,10 @@ const UpdateArticle = () => {
   const [introImagetotalSize, setIntroImageTotalSize] = useState(0);
   const introImageUploadRef = useRef(null);
   const [introImageName, setIntroImageName] = useState("");
-  console.log("categoryId", categoryId);
   const [mainImagetotalSize, setMainImageTotalSize] = useState(0);
   const mainImageUploadRef = useRef(null);
   const [mainImageName, setMainImageName] = useState("");
   const [allCategory, setAllCategory] = useState([]);
-  console.log("mainImageName", mainImageName);
 
   const { id } = useParams();
   const retriveCategoryFromID = async () => {
@@ -46,7 +43,6 @@ const UpdateArticle = () => {
         `http://localhost:8080/categories/${id}`
       );
       setCategory(category.data.response);
-      console.log("category", category);
     } catch (error) {
       if (error) console.log("Error:", error);
     }
@@ -87,9 +83,7 @@ const UpdateArticle = () => {
   };
 
   const setCategoryTree = (categoryTree) => {
-    console.log("categoryTree", categoryTree);
     return categoryTree.map((category) => {
-      console.log("cat", category);
       const hasParent = category.parentId;
       const categoryClassName = hasParent ? "haveParent" : "";
 
@@ -169,8 +163,6 @@ const UpdateArticle = () => {
   };
 
   const onIntroImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -186,8 +178,6 @@ const UpdateArticle = () => {
   };
 
   const onMainImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -449,14 +439,11 @@ const UpdateArticle = () => {
       parentId: categoryId,
     };
 
-    console.log("formData", formData);
-
     try {
       const updateCategory = await axios.patch(
         `http://localhost:8080/categories/${category.id}`,
         formData
       );
-      console.log("updateCategory", updateCategory);
       if ((updateCategory.data.status = 200)) {
         toast.current.show({
           severity: "info",

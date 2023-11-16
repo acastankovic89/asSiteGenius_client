@@ -41,11 +41,61 @@
     border: 10px solid #3C486B;
 }
 
+.admin .adminWrapper .formWrapper .card {
+    width: 100%;
+}
+
 .admin .adminWrapper .formWrapper.menu {
     height: fit-content;
     padding: 60px 0;
 }
 
+.admin .adminWrapper .formWrapper.slider {
+    height: fit-content;
+    padding: 60px 0;
+}
+
+.admin .adminWrapper .formWrapper.slider .input-wrapper.button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.admin .adminWrapper .formWrapper.slider .galleryItemImgWrapper p {
+    width: 100%;
+    text-align: center;
+}
+
+.admin .adminWrapper .formWrapper.slider .galleryItemImgWrapper button {
+    margin-bottom: 20px;
+}
+
+.admin .adminWrapper .formWrapper.slider.sliderItem {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.admin .adminWrapper .formWrapper.slider .galleryItemImgWrapper {
+    width: 22%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin .adminWrapper .formWrapper.slider .galleryItemImgWrapper img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.admin .adminWrapper .formWrapper.slider .card .p-datatable-responsive-scroll {
+    max-width: unset;
+}
+
+.admin .adminWrapper .formWrapper.slider .card .p-paginator {
+    max-width: unset;
+}
 
 .admin .adminWrapper .formWrapper .form {
     display: flex;
@@ -54,6 +104,10 @@
     flex-wrap: wrap;
     align-items: baseline;
 }
+
+.admin .adminWrapper .formWrapper .form.update-password {
+    
+} 
 
 .admin .adminWrapper .formWrapper .form.menu-input {
     flex-direction: column;
@@ -97,6 +151,28 @@
     margin-top: 20px;
     width: 80%;
     
+}
+
+.admin .adminWrapper.slider-items .formWrapper .form .input-wrapper span {
+    width: 100%;
+}
+
+.p-fileupload-content img {
+    height: auto;
+    width: 100%;
+}
+
+.input-wrapper .p-fileupload {
+    height: 100%;
+    max-width: 400px;
+}
+
+.input-wrapper .p-fileupload .input-wrapper .p-fileupload {
+    height: 400px;
+}
+
+.formWrapper .card p-datatable {
+    max-width: unset;
 }
 
 .admin .adminWrapper .formWrapper .form .input-wrapper span {

@@ -17,7 +17,6 @@ import { useParams } from "react-router-dom";
 
 const UpdateArticle = () => {
   const [article, setArticle] = useState(null);
-  console.log("articl zsfzfxzf", article);
   const [categoryId, setCategoryId] = useState(null);
   const [content, setContent] = useState("");
   const [date, setDate] = useState(null);
@@ -32,19 +31,16 @@ const UpdateArticle = () => {
   const [introImagetotalSize, setIntroImageTotalSize] = useState(0);
   const introImageUploadRef = useRef(null);
   const [introImageName, setIntroImageName] = useState("");
-  console.log("categoryId", categoryId);
   const [mainImagetotalSize, setMainImageTotalSize] = useState(0);
   const mainImageUploadRef = useRef(null);
   const [mainImageName, setMainImageName] = useState("");
   const [allCategory, setAllCategory] = useState([]);
-  console.log("mainImageName", mainImageName);
 
   const { id } = useParams();
   const retriveArticleFromID = async () => {
     try {
       const article = await axios.get(`http://localhost:8080/articles/${id}`);
       setArticle(article.data.response);
-      console.log("article", article);
     } catch (error) {
       if (error) console.log("Error:", error);
     }
@@ -85,9 +81,7 @@ const UpdateArticle = () => {
   };
 
   const setCategoryTree = (categoryTree) => {
-    console.log("categoryTree", categoryTree);
     return categoryTree.map((category) => {
-      console.log("cat", category);
       const hasParent = category.parentId;
       const categoryClassName = hasParent ? "haveParent" : "";
 
@@ -167,8 +161,6 @@ const UpdateArticle = () => {
   };
 
   const onIntroImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -184,8 +176,6 @@ const UpdateArticle = () => {
   };
 
   const onMainImageTemplateUpload = async (e) => {
-    console.log("e", e);
-    console.log("test onTemplateUpload ");
     let _totalSize = 0;
 
     e.files.forEach((file) => {
@@ -447,14 +437,11 @@ const UpdateArticle = () => {
       categoryId: categoryId,
     };
 
-    console.log("formData", formData);
-
     try {
       const updateArticle = await axios.patch(
         `http://localhost:8080/articles/${article.id}`,
         formData
       );
-      console.log("updateArticle", updateArticle);
       if ((updateArticle.data.status = 200)) {
         toast.current.show({
           severity: "info",

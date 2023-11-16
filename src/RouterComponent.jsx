@@ -12,6 +12,18 @@ import AddNewMenu from "./components/Menus/AddNewMenu";
 import MenusTable from "./components/Menus/MenusTable";
 import MenuItems from "./components/Menus/MenuItems/MenuItems";
 import UpdateMenuItems from "./components/Menus/MenuItems/UpdateMenuItems";
+import SliderTable from "./components/Slider/SlidersTable";
+import AddNewSlider from "./components/Slider/AddNewSlider";
+import SliderItems from "./components/Slider/SliderItems/SliderItems";
+import UpdateSliderItems from "./components/Slider/SliderItems/UpdateSliderItems";
+import UserTable from "./components/User/UserTable";
+import CreateUser from "./components/User/AddNewUser";
+import AddNewUser from "./components/User/AddNewUser";
+import UpdateUser from "./components/User/UpdateUser";
+import AddNewGallery from "./components/Gallery/AddNewGallery";
+import GalleriesTable from "./components/Gallery/GalleriesTable";
+import UpdateGallery from "./components/Gallery/UpdateGallery";
+import CreateGalleryItems from "./components/Gallery/GalleryItems/CreateGalleryItems";
 
 export const RouterComponent = () => {
   return (
@@ -36,6 +48,26 @@ export const RouterComponent = () => {
         <Route path="menus/menusTable" element={<MenusTable />} />
         <Route path="menus/createMenuItems/:id" element={<MenuItems />} />
         <Route path="menus/updateMenuItems/:id" element={<UpdateMenuItems />} />
+        {/* sliders */}
+        <Route path="/slider/addNewSlider" element={<AddNewSlider />} />
+        <Route path="slider/slidersTable" element={<SliderTable />} />
+        <Route path="slider/createSliderItems/:id" element={<SliderItems />} />
+        <Route
+          path="slider/updateSliderItems/:id"
+          element={<UpdateSliderItems />}
+        />
+
+        <Route path="/users/addNewUser" element={<AddNewUser />} />
+        <Route path="users/usersTable" element={<UserTable />} />
+        <Route path="users/updateUser/:id" element={<UpdateUser />} />
+
+        <Route path="/gallery/addNewGallery" element={<AddNewGallery />} />
+        <Route path="/gallery/galleriesTable" element={<GalleriesTable />} />
+        <Route path="/gallery/updateGallery/:id" element={<UpdateGallery />} />
+        <Route
+          path="/gallery/createGalleryItems/:id"
+          element={<CreateGalleryItems />}
+        />
       </Routes>
     </Router>
   );

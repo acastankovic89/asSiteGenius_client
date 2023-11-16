@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const ArticlesTable = () => {
   const [articlesAll, setArticlesAll] = useState([]);
+  console.log("articlesAll", articlesAll);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [displayDeleteDialog, setDisplayDeleteDialog] = useState(false);
   const toast = useRef(null);

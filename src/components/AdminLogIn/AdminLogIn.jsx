@@ -16,8 +16,6 @@ const AdminLogIn = () => {
   const [isValid, setIsValid] = useState(true);
   const [validationMessage, setValidationMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log("password", password);
-  console.log("email", email);
 
   const checkSession = () => {
     const adminCookie = Cookies.get("admin");

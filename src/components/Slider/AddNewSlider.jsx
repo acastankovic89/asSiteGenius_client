@@ -9,11 +9,14 @@ import axios from "axios";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
 
-const AddNewMenu = () => {
+const AddNewSlider = () => {
   const toast = useRef(null);
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState({
+    name: "Srpski",
+    id: 1,
+  });
 
   const languages = [
     { language: "Srpski", id: 1 },
@@ -29,21 +32,24 @@ const AddNewMenu = () => {
       languageId: selectedLanguage.id,
     };
     try {
-      const addMenu = await axios.post("http://localhost:8080/menus", formData);
-      if (addMenu.data.status === 200) {
+      const addSlider = await axios.post(
+        "http://localhost:8080/slider",
+        formData
+      );
+      if (addSlider.data.status === 200) {
         toast.current.show({
           severity: "info",
           summary: "Success",
-          detail: "Menu Created",
+          detail: "Slider Created",
         });
         setTimeout(() => {
-          navigate("/menus/menusTable");
+          navigate("/slider/slidersTable");
         }, 2000);
       } else {
         toast.current.show({
           severity: "info",
           summary: "Warnning",
-          detail: "Error creating menu.",
+          detail: "Error creating slider.",
         });
       }
     } catch (error) {
@@ -60,7 +66,7 @@ const AddNewMenu = () => {
           <Toast ref={toast}></Toast>
           <div className="form">
             <div className="input-wrapper">
-              <label htmlFor="name">Menu name</label>
+              <label htmlFor="name">Slider name</label>
               <InputText
                 id="name"
                 className="p-inputtext-lg"
@@ -70,7 +76,7 @@ const AddNewMenu = () => {
               />
             </div>
             <div className="input-wrapper">
-              <label htmlFor="languageSelector">Menu lLanguage</label>
+              <label htmlFor="languageSelector">Slider Language</label>
               <Dropdown
                 id="languageSelector"
                 value={selectedLanguage}
@@ -82,7 +88,7 @@ const AddNewMenu = () => {
               />
             </div>
             <div className="input-wrapper button">
-              <Button label="Save Menu" onClick={handleForm} />
+              <Button label="Save Slider" onClick={handleForm} />
             </div>
           </div>
         </div>
@@ -90,4 +96,4 @@ const AddNewMenu = () => {
     </div>
   );
 };
-export default AddNewMenu;
+export default AddNewSlider;

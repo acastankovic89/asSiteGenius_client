@@ -130,7 +130,6 @@ const UpdateMenuItems = () => {
   }
 
   var menuItemOptions;
-  console.log("allMenuItems", allMenuItems);
   if (allMenuItems) {
     menuItemOptions = [
       allMenuItems.map((menuItem) => ({
@@ -236,14 +235,11 @@ const UpdateMenuItems = () => {
       name: menuItemName,
     };
 
-    console.log("formData", formData);
-
     try {
       const addMenuItem = await axios.patch(
         `http://localhost:8080/menu-items/${id}`,
         formData
       );
-      console.log("addMenuItem", addMenuItem);
       if (addMenuItem.data.status === 200) {
         toast.current.show({
           severity: "info",
