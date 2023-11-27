@@ -12,14 +12,48 @@ import { Dialog } from "primereact/dialog";
 const CreateGalleryItems = () => {
   const toast = useRef();
   const galleryId = useParams("id");
-  const [allImageForGallery, setAllImageForGallery] = useState();
-  const [captions, setCaptions] = useState();
-  const [galleryItems, setGalleryItems] = useState();
   const [imageForDelete, setImageForDelete] = useState();
-  console.log("imageForDelete", imageForDelete);
+  const [imageNameForItemDelete, setImageNameForItemDelete] = useState();
   const [deleteDialogDisplay, setDeleteDialogDisplay] = useState(false);
-  console.log("galleryItems", galleryItems);
-  console.log("captions", captions);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [imagesFromFolder, setImagesFromFolder] = useState([]);
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [galleryItemsToatal, setGalleryItemsToatal] = useState([]);
+  const [initialGalleryItemsToatal, setInitialGalleryItemsToatal] = useState(
+    []
+  );
+
+  useEffect(() => {
+    // Set the initial state of galleryItemsToatal with default captions
+    const initialToatal = galleryItems.map((item, index) => ({
+      ...item,
+      imageUrl: imagesFromFolder[index]
+        ? imagesFromFolder[index].itemImageName
+        : "",
+    }));
+    setInitialGalleryItemsToatal(initialToatal);
+    setGalleryItemsToatal(initialToatal);
+  }, [galleryItems, imagesFromFolder]);
+
+  const sortedImagesFromFolder = [...imagesFromFolder].sort((a, b) =>
+    a.itemImageName.localeCompare(b.itemImageName)
+  );
+
+  // Sort galleryItems array
+  const sortedGalleryItems = [...galleryItems].sort((a, b) =>
+    a.itemImageName.localeCompare(b.itemImageName)
+  );
+
+  // const galleryItemsToatal = sortedGalleryItems.map((item, index) => ({
+  //   ...item,
+  //   imageUrl:
+  //     sortedImagesFromFolder[index] &&
+  //     sortedImagesFromFolder[index].itemImageName
+  //       ? sortedImagesFromFolder[index].itemImageName
+  //       : "",
+  // }));
+
+  console.log("galleryItemsToatal", galleryItemsToatal);
 
   const pageReload = () => {
     setTimeout(() => {
@@ -27,21 +61,40 @@ const CreateGalleryItems = () => {
     }, 1500);
   };
 
-  // TODO: create find galery item
-
-  const findGalleryItem = () => {
+  const fetchImagesFromFolder = async () => {
     try {
-    } catch (error) {}
-  };
-
-  const findAllForGallery = async () => {
-    try {
-      const getAllImages = await axios.get(
+      const fetchImages = await axios.get(
         `http://localhost:8080/file-upload/gallery/${galleryId.id}`
       );
-      if (getAllImages) {
-        setAllImageForGallery(getAllImages.data.response);
-        setCaptions(new Array(getAllImages.data.response.length).fill(""));
+      if (fetchImages) {
+        setImagesFromFolder(fetchImages.data.response);
+      }
+    } catch (error) {
+      if (error) {
+        console.log("Error:", error);
+      }
+    }
+  };
+
+  const fetchGalleryItems = async () => {
+    try {
+      const fetchItems = await axios.get(
+        `http://localhost:8080/gallery-items/${galleryId.id}`
+      );
+      if (fetchItems) {
+        const sortedGalleryItems = [...fetchItems.data.response].sort((a, b) =>
+          a.itemImageName.localeCompare(b.itemImageName)
+        );
+        setGalleryItems(sortedGalleryItems);
+        const updatedGalleryItemsToatal = fetchItems.data.response.map(
+          (item, index) => ({
+            ...item,
+            imageUrl: sortedImagesFromFolder[index]
+              ? sortedImagesFromFolder[index].itemImageName
+              : "",
+          })
+        );
+        setGalleryItemsToatal(updatedGalleryItemsToatal);
       }
     } catch (error) {
       if (error) {
@@ -51,22 +104,21 @@ const CreateGalleryItems = () => {
   };
 
   useEffect(() => {
-    findAllForGallery();
+    fetchImagesFromFolder();
+    fetchGalleryItems();
   }, []);
 
-  useEffect(() => {
-    if (allImageForGallery && allImageForGallery.length > 0) {
-      const newGalleryItem = allImageForGallery.map((element, index) => ({
-        itemImageName: element,
-        caption: captions[index],
-        galleryId: galleryId.id,
-      }));
-      setGalleryItems(newGalleryItem);
-    }
-  }, [allImageForGallery, captions]);
+  const handleSelect = (selectedFiles) => {
+    const fileNames = selectedFiles.files.map((file, index) => ({
+      itemImageName: file.name,
+      caption: "",
+      galleryId: galleryId.id,
+    }));
+    setSelectedImages(fileNames);
+  };
 
   const handleForm = async () => {
-    const formData = galleryItems;
+    const formData = selectedImages;
     console.log("formData", formData);
     try {
       const galleryItem = await axios.post(
@@ -79,9 +131,8 @@ const CreateGalleryItems = () => {
           summary: "Success",
           detail: galleryItem.data.message,
         });
-        console.log("galleryItem sadsadad", galleryItem);
         setTimeout(() => {
-          window.location.reload();
+          pageReload();
         }, 1500);
       }
     } catch (error) {
@@ -91,8 +142,9 @@ const CreateGalleryItems = () => {
     }
   };
 
-  const handleDelete = (data) => {
+  const handleDelete = (data, item) => {
     setImageForDelete(data);
+    setImageNameForItemDelete(item);
     setDeleteDialogDisplay(true);
   };
 
@@ -110,7 +162,7 @@ const CreateGalleryItems = () => {
         });
         setTimeout(() => {
           window.location.reload();
-        }, 1500);
+        }, 800);
       }
     } catch (error) {
       if (error) {
@@ -119,14 +171,48 @@ const CreateGalleryItems = () => {
     }
     try {
       const deleteGalleryItem = await axios.delete(
-        `http://localhost:8080/gallery-items/${galleryId.id}/${imageForDelete}`
+        `http://localhost:8080/gallery-items/${galleryId.id}/${imageNameForItemDelete}`
       );
-      console.log("deleteGalleryItem", deleteGalleryItem);
     } catch (error) {
       if (error) {
         console.log("Error:", error);
       }
     }
+  };
+
+  const updateGallery = async () => {
+    try {
+      const formData = galleryItemsToatal;
+      const updateGalleryItem = await axios.patch(
+        `http://localhost:8080/gallery-items/`,
+        formData
+      );
+      if (updateGalleryItem.data.status === 200) {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: updateGalleryItem.data.message,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      } else {
+        toast.current.show({
+          severity: "error",
+          detail: updateGalleryItem.data.message,
+        });
+      }
+    } catch (error) {
+      if (error) {
+        console.log("Error:", error);
+      }
+    }
+  };
+
+  const handleInputCaption = (index, newValue) => {
+    const updatedGalleryItemsToatal = [...galleryItemsToatal];
+    updatedGalleryItemsToatal[index].caption = newValue;
+    setGalleryItemsToatal(updatedGalleryItemsToatal);
   };
 
   return (
@@ -141,7 +227,8 @@ const CreateGalleryItems = () => {
               name="galleryImageUpload"
               url={`http://localhost:8080/file-upload/gallery/${galleryId.id}`}
               multiple
-              onUpload={pageReload}
+              onUpload={handleForm}
+              onSelect={handleSelect}
               accept="image/*"
               maxFileSize={2000000}
               emptyTemplate={
@@ -151,26 +238,24 @@ const CreateGalleryItems = () => {
           </div>
         </div>
         <div className="formWrapper slider sliderItem">
-          {allImageForGallery && allImageForGallery.length > 0 ? (
-            allImageForGallery.map((element, index) => (
+          {galleryItemsToatal && galleryItemsToatal.length > 0 ? (
+            galleryItemsToatal.map((element, index) => (
               <div className="galleryItemImgWrapper" key={index}>
                 <img
-                  src={`http://localhost:8080/uploads/gallery/${galleryId.id}/${element}`}
+                  src={`http://localhost:8080/uploads/gallery/${galleryId.id}/${element.imageUrl}`}
                   alt=""
                 />
                 <InputText
                   className={"p-inputtext-lg"}
-                  value={captions[index]}
-                  onChange={(e) => {
-                    const updatedCaptions = [...captions];
-                    updatedCaptions[index] = e.target.value;
-                    setCaptions(updatedCaptions);
-                  }}
+                  value={galleryItemsToatal[index].caption || ""}
+                  onChange={(e) => handleInputCaption(index, e.target.value)}
                 />
                 <p>Image caption</p>
                 <Button
                   label="Delete image"
-                  onClick={() => handleDelete(element)}
+                  onClick={() =>
+                    handleDelete(element.imageUrl, element.itemImageName)
+                  }
                   severity="danger"
                 />
               </div>
@@ -179,7 +264,7 @@ const CreateGalleryItems = () => {
             <p>No images to display</p>
           )}
           <div className="input-wrapper button">
-            <Button label="Update gallery" onClick={handleForm} />
+            <Button label="Update gallery" onClick={updateGallery} />
           </div>
         </div>
       </div>
@@ -198,7 +283,7 @@ const CreateGalleryItems = () => {
             <Button
               label="No"
               icon="pi pi-times"
-              onClick={() => setDisplayDeleteDialog(false)}
+              onClick={() => setDeleteDialogDisplay(false)}
               className="p-button-secondary"
             />
           </div>
